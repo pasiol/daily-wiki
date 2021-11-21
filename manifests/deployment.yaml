@@ -11,14 +11,15 @@ spec:
         spec:
           containers:
             - name: daily-wiki
-              image: pasiol/daily-wiki@sha256:93d503d66c6a8215b1d2343a0f09703ff40ba6b1a07255022c19c03c36dd0f48
-              imagePullPolicy: IfNotPresent
-              command:
-                - /bin/sh
-                /var/app/daily-wiki
               env:
                 - name: TODO_HOST
                   value: todo-project-backend-svc
                 - name: TODO_PORT
                   value: "8888"
+              image: pasiol/daily-wiki@sha256:93d503d66c6a8215b1d2343a0f09703ff40ba6b1a07255022c19c03c36dd0f48
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - /var/app/daily-wiki
           restartPolicy: OnFailure
