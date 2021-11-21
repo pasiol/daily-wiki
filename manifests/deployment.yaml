@@ -4,7 +4,7 @@ metadata:
   name: daily-wiki-cronjob
   namespace: todo-project
 spec:
-  schedule: "0 10 * * *"
+  schedule: "0 16 * * *"
   jobTemplate:
     spec:
       template:
