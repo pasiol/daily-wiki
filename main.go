@@ -11,10 +11,11 @@ import (
 	"os"
 )
 
+type payload struct {
+	Task string `json:"task"`
+}
+
 func main() {
-	type payload struct {
-		Task string `json:"task"`
-	}
 
 	err := godotenv.Load()
 	if err != nil {
@@ -30,11 +31,18 @@ func main() {
 	data := payload{
 		Task: task,
 	}
-	payloadBytes, _ := json.Marshal(data)
+	payloadBytes, err := json.Marshal(data)
+	if err != nil {
+		log.Fatalf("generating payload failed: %s", err)
+	}
 
 	body := bytes.NewReader(payloadBytes)
-
-	req, err := http.NewRequest("POST", os.Getenv("TODO_HOST"), body)
+	url := fmt.Sprintf(
+		"http://%s:%s/todos",
+		os.Getenv("TODO_HOST"),
+		os.Getenv("TODO_PORT"),
+	)
+	req, err := http.NewRequest("POST", url, body)
 	if err != nil {
 		// handle err
 	}

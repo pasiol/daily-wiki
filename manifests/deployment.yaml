@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: daily-wiki-cronjob
+spec:
+  schedule: "0 10 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: daily-wiki
+              image: pasiol/daily-wiki@sha256:93d503d66c6a8215b1d2343a0f09703ff40ba6b1a07255022c19c03c36dd0f48
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                /var/app/daily-wiki
+              env:
+                - name: TODO_HOST
+                  value: todo-project-backend
+                - name: TODO_PORT
+                  value: "8888"
+          restartPolicy: OnFailure
