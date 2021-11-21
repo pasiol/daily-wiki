@@ -18,7 +18,7 @@ spec:
                 /var/app/daily-wiki
               env:
                 - name: TODO_HOST
-                  value: todo-project-backend
+                  value: todo-project-backend-svc
                 - name: TODO_PORT
                   value: "8888"
           restartPolicy: OnFailure
